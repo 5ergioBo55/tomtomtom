@@ -2,7 +2,7 @@
 
 global with sharing class CaseCloseResource {
     @HttpPost
-    global static void closeReason(String reason){
+    global static void closeCase(String reason){
         // parse context
         RestRequest req = RestContext.request;
 

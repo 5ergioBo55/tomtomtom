@@ -2,17 +2,21 @@ public with sharing class CaseService {
     
     public static void closeCases(Set<Id> caseIds, String closedReason){
         // query for cases 
-        List<Case> cases = [
-            SELECT Id, Reason
-            FROM Case
-            WHERE Id IN :caseIds
-        ];
-        for(Case c: cases){
-            c.Reason = closedReason;
+        List<Case> cases4update = new List<Case>();
+        
+        for(Id cID: caseIds){
+            
+            Case c = new Case(
+                Id = cID,
+                Reason = closedReason,
+                Status = 'Closed'
+            );
+
+            cases4update.add(c);
         }
 
         try {
-            update cases;
+            update cases4update;
         } catch (Exception e) {
             throw e;
         }
